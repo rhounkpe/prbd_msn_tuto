@@ -108,57 +108,57 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="prbd_msn_tuto.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="members">
+        <EntityType Name="Member">
           <Key>
-            <PropertyRef Name="pseudo" />
+            <PropertyRef Name="Pseudo" />
           </Key>
-          <Property Name="pseudo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="profile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="picture_path" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="messages" Relationship="Self.messages_members_author_fk" FromRole="members" ToRole="messages" />
-          <NavigationProperty Name="messages1" Relationship="Self.messages_members_recipient_fk" FromRole="members" ToRole="messages" />
-          <NavigationProperty Name="members1" Relationship="Self.follows" FromRole="members" ToRole="members1" />
-          <NavigationProperty Name="members2" Relationship="Self.follows" FromRole="members1" ToRole="members" />
+          <Property Name="Pseudo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Profile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PicturePath" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="MessagesSent" Relationship="Self.messages_members_author_fk" FromRole="members" ToRole="messages" />
+          <NavigationProperty Name="MessagesReceived" Relationship="Self.messages_members_recipient_fk" FromRole="members" ToRole="messages" />
+          <NavigationProperty Name="Followers" Relationship="Self.follows" FromRole="members" ToRole="members1" />
+          <NavigationProperty Name="Followees" Relationship="Self.follows" FromRole="members1" ToRole="members" />
         </EntityType>
-        <EntityType Name="messages">
+        <EntityType Name="Message">
           <Key>
-            <PropertyRef Name="post_id" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="post_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="private" Type="Int16" Nullable="false" />
-          <Property Name="date_time" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="members" Relationship="Self.messages_members_author_fk" FromRole="messages" ToRole="members" />
-          <NavigationProperty Name="members1" Relationship="Self.messages_members_recipient_fk" FromRole="messages" ToRole="members" />
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Private" Type="Int16" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Author" Relationship="Self.messages_members_author_fk" FromRole="messages" ToRole="members" />
+          <NavigationProperty Name="Recipient" Relationship="Self.messages_members_recipient_fk" FromRole="messages" ToRole="members" />
         </EntityType>
         <Association Name="messages_members_author_fk">
-          <End Role="members" Type="Self.members" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
+          <End Role="members" Type="prbd_msn_tuto.Model.Member" Multiplicity="1" />
+          <End Role="messages" Type="prbd_msn_tuto.Model.Message" Multiplicity="*" />
         </Association>
         <Association Name="messages_members_recipient_fk">
-          <End Role="members" Type="Self.members" Multiplicity="1" />
-          <End Role="messages" Type="Self.messages" Multiplicity="*" />
+          <End Role="members" Type="prbd_msn_tuto.Model.Member" Multiplicity="1" />
+          <End Role="messages" Type="prbd_msn_tuto.Model.Message" Multiplicity="*" />
         </Association>
         <Association Name="follows">
-          <End Role="members" Type="Self.members" Multiplicity="*" />
-          <End Role="members1" Type="Self.members" Multiplicity="*" />
+          <End Role="members" Type="prbd_msn_tuto.Model.Member" Multiplicity="*" />
+          <End Role="members1" Type="prbd_msn_tuto.Model.Member" Multiplicity="*" />
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="members" EntityType="Self.members" />
-          <EntitySet Name="messages" EntityType="Self.messages" />
+          <EntitySet Name="Members" EntityType="prbd_msn_tuto.Model.Member" />
+          <EntitySet Name="Messages" EntityType="prbd_msn_tuto.Model.Message" />
           <AssociationSet Name="messages_members_author_fk" Association="Self.messages_members_author_fk">
-            <End Role="members" EntitySet="members" />
-            <End Role="messages" EntitySet="messages" />
+            <End Role="members" EntitySet="Members" />
+            <End Role="messages" EntitySet="Messages" />
           </AssociationSet>
           <AssociationSet Name="messages_members_recipient_fk" Association="Self.messages_members_recipient_fk">
-            <End Role="members" EntitySet="members" />
-            <End Role="messages" EntitySet="messages" />
+            <End Role="members" EntitySet="Members" />
+            <End Role="messages" EntitySet="Messages" />
           </AssociationSet>
           <AssociationSet Name="follows" Association="Self.follows">
-            <End Role="members" EntitySet="members" />
-            <End Role="members1" EntitySet="members" />
+            <End Role="members" EntitySet="Members" />
+            <End Role="members1" EntitySet="Members" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -167,49 +167,49 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="prbd_msn_tutoModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="members">
-            <EntityTypeMapping TypeName="prbd_msn_tuto.Model.members">
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="prbd_msn_tuto.Model.Member">
               <MappingFragment StoreEntitySet="members">
-                <ScalarProperty Name="pseudo" ColumnName="pseudo" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="profile" ColumnName="profile" />
-                <ScalarProperty Name="picture_path" ColumnName="picture_path" />
-                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="Pseudo" ColumnName="pseudo" />
+                <ScalarProperty Name="Password" ColumnName="password" />
+                <ScalarProperty Name="Profile" ColumnName="profile" />
+                <ScalarProperty Name="PicturePath" ColumnName="picture_path" />
+                <ScalarProperty Name="Picture" ColumnName="picture" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="prbd_msn_tuto.Model.messages">
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="prbd_msn_tuto.Model.Message">
               <MappingFragment StoreEntitySet="messages">
-                <ScalarProperty Name="post_id" ColumnName="post_id" />
-                <ScalarProperty Name="body" ColumnName="body" />
-                <ScalarProperty Name="private" ColumnName="private" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="PostId" ColumnName="post_id" />
+                <ScalarProperty Name="Body" ColumnName="body" />
+                <ScalarProperty Name="Private" ColumnName="private" />
+                <ScalarProperty Name="DateTime" ColumnName="date_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="messages_members_author_fk" TypeName="prbd_msn_tuto.Model.messages_members_author_fk" StoreEntitySet="messages">
             <EndProperty Name="members">
-              <ScalarProperty Name="pseudo" ColumnName="author" />
+              <ScalarProperty Name="Pseudo" ColumnName="author" />
             </EndProperty>
             <EndProperty Name="messages">
-              <ScalarProperty Name="post_id" ColumnName="post_id" />
+              <ScalarProperty Name="PostId" ColumnName="post_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="messages_members_recipient_fk" TypeName="prbd_msn_tuto.Model.messages_members_recipient_fk" StoreEntitySet="messages">
             <EndProperty Name="members">
-              <ScalarProperty Name="pseudo" ColumnName="recipient" />
+              <ScalarProperty Name="Pseudo" ColumnName="recipient" />
             </EndProperty>
             <EndProperty Name="messages">
-              <ScalarProperty Name="post_id" ColumnName="post_id" />
+              <ScalarProperty Name="PostId" ColumnName="post_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="follows" TypeName="prbd_msn_tuto.Model.follows" StoreEntitySet="follows">
             <EndProperty Name="members">
-              <ScalarProperty Name="pseudo" ColumnName="followee" />
+              <ScalarProperty Name="Pseudo" ColumnName="followee" />
             </EndProperty>
             <EndProperty Name="members1">
-              <ScalarProperty Name="pseudo" ColumnName="follower" />
+              <ScalarProperty Name="Pseudo" ColumnName="follower" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

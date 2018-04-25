@@ -25,7 +25,7 @@ namespace prbd_msn_tuto
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<members> members { get; set; }
-        public virtual DbSet<messages> messages { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
     }
 }

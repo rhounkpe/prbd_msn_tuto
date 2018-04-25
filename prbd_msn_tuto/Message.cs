@@ -12,14 +12,14 @@ namespace prbd_msn_tuto
     using System;
     using System.Collections.Generic;
     
-    public partial class messages
+    public partial class Message
     {
-        public int post_id { get; set; }
-        public string body { get; set; }
-        public short @private { get; set; }
-        public System.DateTime date_time { get; set; }
+        public int PostId { get; set; }
+        public string Body { get; set; }
+        public short Private { get; set; }
+        public System.DateTime DateTime { get; set; }
     
-        public virtual members members { get; set; }
-        public virtual members members1 { get; set; }
+        public virtual Member Author { get; set; }
+        public virtual Member Recipient { get; set; }
     }
 }

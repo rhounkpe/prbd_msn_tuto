@@ -12,30 +12,30 @@ namespace prbd_msn_tuto
     using System;
     using System.Collections.Generic;
     
-    public partial class members
+    public partial class Member
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public members()
+        public Member()
         {
-            this.messages = new HashSet<messages>();
-            this.messages1 = new HashSet<messages>();
-            this.members1 = new HashSet<members>();
-            this.members2 = new HashSet<members>();
+            this.MessagesSent = new HashSet<Message>();
+            this.MessagesReceived = new HashSet<Message>();
+            this.Followers = new HashSet<Member>();
+            this.Followees = new HashSet<Member>();
         }
     
-        public string pseudo { get; set; }
-        public string password { get; set; }
-        public string profile { get; set; }
-        public string picture_path { get; set; }
-        public byte[] picture { get; set; }
+        public string Pseudo { get; set; }
+        public string Password { get; set; }
+        public string Profile { get; set; }
+        public string PicturePath { get; set; }
+        public byte[] Picture { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<messages> messages { get; set; }
+        public virtual ICollection<Message> MessagesSent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<messages> messages1 { get; set; }
+        public virtual ICollection<Message> MessagesReceived { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<members> members1 { get; set; }
+        public virtual ICollection<Member> Followers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<members> members2 { get; set; }
+        public virtual ICollection<Member> Followees { get; set; }
     }
 }
